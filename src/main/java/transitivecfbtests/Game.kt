@@ -1,4 +1,4 @@
-package transitivecfb
+package transitivecfbtests
 
 import com.opencsv.bean.CsvBindByName
 

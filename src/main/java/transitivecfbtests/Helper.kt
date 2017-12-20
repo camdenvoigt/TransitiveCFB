@@ -1,4 +1,4 @@
-package transitivecfb
+package transitivecfbtests
 
 import com.opencsv.bean.CsvToBeanBuilder
 import java.io.FileReader
@@ -96,7 +96,7 @@ fun compareTeams(team1: Team, team2: Team?, game: Game, depth: Int = 1): Int {
         }
     }
 
-    val commonOpponentScore = team1.commonOpponentScore(team2)
+    val commonOpponentScore = team1.commonOpponentScore(team2, game.week)
 
     if (commonOpponentScore > 0) {
         // Team 1 wins by transitive property

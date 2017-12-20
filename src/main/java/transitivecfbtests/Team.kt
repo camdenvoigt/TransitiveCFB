@@ -1,4 +1,4 @@
-package transitivecfb
+package transitivecfbtests
 
 import com.opencsv.bean.CsvBindByPosition
 
@@ -89,7 +89,7 @@ class Team {
     /*
         Returns the advantage in common opponents that this has against the other team
      */
-    fun commonOpponentScore(otherTeam: Team): Int {
+    fun commonOpponentScore(otherTeam: Team, week: Int): Int {
         if (this.transSchedule.isEmpty() || otherTeam.transSchedule.isEmpty()) {
             return 0
         }
@@ -100,8 +100,16 @@ class Team {
         // For each game in this teams transitive schedule
         this.transSchedule.forEach { thisGame ->
 
+            if(thisGame.week > week) {
+                return@forEach
+            }
+
             // Check against every game in the other teams transitive schedule
             otherTeam.transSchedule.forEach { thatGame ->
+
+                if(thatGame.week > week) {
+                    return@forEach
+                }
 
                 // If they played the same opponent that wasn't FCS
                 if (thisGame.getOpponentName(this) != "FCS" && thisGame.getOpponentName(this) == thatGame.getOpponentName(otherTeam)) {
@@ -176,10 +184,8 @@ class Team {
                 "division=$division,\n" +
                 "record= $overallWins - $overalLosses, " +
                 "conf record= $confWins - $confLosses, " +
-                "schedule= $schedule\n" +
                 "tran record= $transOverallWins - $transOverallLosses, " +
-                "tran conf record= $transConfWins - $transConfLosses, " +
-                "trans schedule= $transSchedule)"
+                "tran conf record= $transConfWins - $transConfLosses)"
     }
 
     override fun equals(other: Any?): Boolean {

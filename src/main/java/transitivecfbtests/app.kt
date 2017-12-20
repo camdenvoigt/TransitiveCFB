@@ -1,4 +1,4 @@
-package transitivecfb
+package transitivecfbtests
 
 fun main(args: Array<String>) {
     //TODO: take command line arguments
