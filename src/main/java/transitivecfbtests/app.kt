@@ -1,3 +1,5 @@
+package transitivecfb
+
 fun main(args: Array<String>) {
     //TODO: take command line arguments
     var teams = parseData("2017")

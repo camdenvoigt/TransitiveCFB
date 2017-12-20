@@ -1,3 +1,5 @@
+package transitivecfb
+
 import com.opencsv.bean.CsvBindByName
 
 class Game {
@@ -13,11 +15,11 @@ class Game {
     @CsvBindByName(column = "Winner", required = true)
     var team1: String? = null
         set(value) {
-            if(value is String && value.startsWith("(")) {
+            if (value is String && value.startsWith("(")) {
                 val i = value.indexOf(")")
                 val newVal = value.substring(i + 2)
                 field = sanitizeNames(newVal)
-            } else if(value == null) {
+            } else if (value == null) {
                 field = null
             } else {
                 field = sanitizeNames(value)
@@ -29,11 +31,11 @@ class Game {
     @CsvBindByName(column = "Loser", required = true)
     var team2: String? = null
         set(value) {
-            if(value is String && value.startsWith("(")) {
+            if (value is String && value.startsWith("(")) {
                 val i = value.indexOf(")")
                 val newVal = value.substring(i + 2)
                 field = sanitizeNames(newVal)
-            } else if(value == null) {
+            } else if (value == null) {
                 field = null
             } else {
                 field = sanitizeNames(value)
@@ -65,7 +67,7 @@ class Game {
         Returns whether the given team is team1 for this game
      */
     fun isTeam1(team: Team): Boolean {
-        if(team.name == team1) {
+        if (team.name == team1) {
             return true
         }
 
@@ -76,7 +78,7 @@ class Game {
         Gets the name of the opponent of the given team in this game
      */
     fun getOpponentName(team: Team): String {
-        if(isTeam1(team)) {
+        if (isTeam1(team)) {
             return team2!!
         } else {
             return team1!!
@@ -89,7 +91,7 @@ class Game {
         Cleans up names for teams with abbreviations in the schools file
     */
     private fun sanitizeNames(name: String): String {
-        when(name) {
+        when (name) {
             "Central Florida" -> return "UCF"
             "Louisiana State" -> return "LSU"
             "Mississippi" -> return "Ole Miss"
@@ -115,7 +117,7 @@ class Game {
     }
 
     override fun equals(other: Any?): Boolean {
-        if(other !is Game || this.id != other.id || this.week != other.week) {
+        if (other !is Game || this.id != other.id || this.week != other.week) {
             return false
         }
 

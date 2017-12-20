@@ -1,3 +1,5 @@
+package transitivecfb
+
 import com.opencsv.bean.CsvToBeanBuilder
 import java.io.FileReader
 
@@ -10,19 +12,19 @@ fun parseData(year: String): List<Team> {
 
     //TODO: make this better if possible
     for (game in games) {
-        for(team in teams) {
+        for (team in teams) {
             if (game.team1 == team.name) {
                 game.team1Id = team.id
                 team.schedule.add(game)
-            } else if(game.team2 == team.name) {
+            } else if (game.team2 == team.name) {
                 game.team2Id = team.id
                 team.schedule.add(game)
             }
         }
-        if(game.team1Id == null) {
+        if (game.team1Id == null) {
             game.team1Id = 0
             game.team1 = "FCS"
-        } else if (game.team2Id == null){
+        } else if (game.team2Id == null) {
             game.team2Id = 0
             game.team2 = "FCS"
         }
@@ -35,12 +37,12 @@ fun parseData(year: String): List<Team> {
     Algorithm for calculating the transative results for a given set of teams
  */
 fun calculateTransitiveResults(teams: List<Team>, depth: Int = 1) {
-    for(i in 1..14) {
+    for (i in 1..14) {
         for (team in teams) {
             team.marked = false
         }
 
-        for(team in teams) {
+        for (team in teams) {
             if (team.marked) continue
             val game = team.getGame(i) ?: continue
             val otherTeam = getOtherTeam(game, team, teams)
@@ -57,13 +59,13 @@ fun getOtherTeam(game: Game, team: Team, teams: List<Team>): Team? {
     var team2: Team? = null
 
     if (game.isTeam1(team)) {
-        if(game.team2 == "FCS") {
+        if (game.team2 == "FCS") {
             return null
         }
         val i = teams.indexOf(Team(game.team2Id!!, game.team2!!))
         team2 = teams.get(i)
     } else {
-        if(game.team1 == "FCS") {
+        if (game.team1 == "FCS") {
             return null
         }
         val i = teams.indexOf(Team(game.team1Id!!, game.team1!!))
@@ -101,7 +103,7 @@ fun compareTeams(team1: Team, team2: Team?, game: Game, depth: Int = 1): Int {
         return 2
     } else if (commonOpponentScore < 0) {
         // Team 2 wins by transitive property
-        return - 2
+        return -2
     } else {
         if (game.isTeam1(team1)) {
             // Team 1 wins by playing game
@@ -137,7 +139,7 @@ fun updateTeams(team1: Team, team2: Team?, oldGame: Game, transCode: Int) {
             loserName = team2.name
             loserId = team2.id
             team2.transOverallLosses += 1
-            if(team2.sameConference(team1)) {
+            if (team2.sameConference(team1)) {
                 team2.transConfLosses += 1
             }
             team2.marked = true
@@ -150,7 +152,7 @@ fun updateTeams(team1: Team, team2: Team?, oldGame: Game, transCode: Int) {
             winnerName = team2.name
             winnerId = team2.id
             team2.transOverallWins += 1
-            if(team2.sameConference(team1)) {
+            if (team2.sameConference(team1)) {
                 team2.transConfWins += 1
             }
             team2.marked = true
@@ -179,7 +181,7 @@ fun updateTeams(team1: Team, team2: Team?, oldGame: Game, transCode: Int) {
     Translates codes to make them more usable for saved games
  */
 fun translateTransCode(code: Int): Int {
-    when(code) {
+    when (code) {
         2 -> return 2
         1 -> return 1
         -1 -> return 1
@@ -197,7 +199,7 @@ fun printResults(teams: List<Team>) {
     println(divider)
     println(header)
     println(divider)
-    for(team in teams) {
+    for (team in teams) {
         val formatString = "| %-3d | %-22s |      %-6s     |       %-6s      |       %-6s      |            %-6s            |"
         println(String.format(formatString, team.id, team.name, team.getRecord(), team.getTransRecord(), team.getConfRecord(), team.getTransConfRecord()))
     }

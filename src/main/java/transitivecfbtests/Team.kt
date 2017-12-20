@@ -1,3 +1,5 @@
+package transitivecfb
+
 import com.opencsv.bean.CsvBindByPosition
 
 class Team {
@@ -11,7 +13,7 @@ class Team {
     @CsvBindByPosition(position = 2)
     var conference: String = ""
         set(value) {
-            if(value.endsWith(")")) {
+            if (value.endsWith(")")) {
                 val i = value.indexOf("(")
                 val conf = value.subSequence(0, i - 1)
                 val div = value.subSequence(i + 1, value.length - 1)
@@ -73,11 +75,11 @@ class Team {
         Returns true if given team is in the same conference as the other
      */
     fun sameConference(otherTeam: Team?): Boolean {
-        if(otherTeam == null) {
+        if (otherTeam == null) {
             return false
         }
 
-        if(this.conference == otherTeam.conference) {
+        if (this.conference == otherTeam.conference) {
             return true
         }
 
@@ -88,7 +90,7 @@ class Team {
         Returns the advantage in common opponents that this has against the other team
      */
     fun commonOpponentScore(otherTeam: Team): Int {
-        if(this.transSchedule.isEmpty() || otherTeam.transSchedule.isEmpty()) {
+        if (this.transSchedule.isEmpty() || otherTeam.transSchedule.isEmpty()) {
             return 0
         }
         var sum = 0
@@ -153,7 +155,7 @@ class Team {
         println(divider)
         println(headers)
         println(divider)
-        for(game in transSchedule) {
+        for (game in transSchedule) {
             val formatString = "|   %-3d   | %-22s |   %-3d   | %-22s |  %+2d  |"
             if (game.isTeam1(this)) {
                 println(String.format(formatString, game.team1Id, game.team1, game.team2Id, game.team2, game.transitiveCode))
@@ -181,7 +183,7 @@ class Team {
     }
 
     override fun equals(other: Any?): Boolean {
-        if(other !is Team || this.id != other.id || this.name != other.name) {
+        if (other !is Team || this.id != other.id || this.name != other.name) {
             return false
         }
 
