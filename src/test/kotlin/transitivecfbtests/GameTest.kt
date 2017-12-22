@@ -17,67 +17,67 @@ class GameTest {
 
     @Test
     fun setTeam1() {
-        game.team1 = null
-        assertEquals(null, game.team1, "Team1 wrong set with null")
+        game.winner = null
+        assertEquals(null, game.winner, "Team1 wrong set with null")
 
-        game.team1 = "Louisville"
-        assertEquals("Louisville", game.team1, "Team1 wrong set with no ranking")
+        game.winner = "Louisville"
+        assertEquals("Louisville", game.winner, "Team1 wrong set with no ranking")
 
-        game.team1 = "(19) Louisville"
-        assertEquals("Louisville", game.team1, "Team1 wrong set with ranking")
+        game.winner = "(19) Louisville"
+        assertEquals("Louisville", game.winner, "Team1 wrong set with ranking")
     }
 
     @Test
     fun setTeam2() {
-        game.team2 = null
-        assertEquals(null, game.team2, "Team2 wrong set with null")
+        game.loser = null
+        assertEquals(null, game.loser, "Team2 wrong set with null")
 
-        game.team2 = "Memphis"
-        assertEquals("Memphis", game.team2, "Team2 wrong set with no ranking")
+        game.loser = "Memphis"
+        assertEquals("Memphis", game.loser, "Team2 wrong set with no ranking")
 
-        game.team2 = "(19) Memphis"
-        assertEquals("Memphis", game.team2, "Team2 wrong set with ranking")
+        game.loser = "(19) Memphis"
+        assertEquals("Memphis", game.loser, "Team2 wrong set with ranking")
     }
 
     @Test
     fun sanitizeNames() {
-        game.team1 = "Central Florida"
-        assertEquals("UCF", game.team1, "Central Florida was not changed")
+        game.winner = "Central Florida"
+        assertEquals("UCF", game.winner, "Central Florida was not changed")
 
-        game.team1 = "Louisiana State"
-        assertEquals("LSU", game.team1, "Louisiana State was not changed")
+        game.winner = "Louisiana State"
+        assertEquals("LSU", game.winner, "Louisiana State was not changed")
 
-        game.team1 = "Mississippi"
-        assertEquals("Ole Miss", game.team1, "Mississippi was not changed")
+        game.winner = "Mississippi"
+        assertEquals("Ole Miss", game.winner, "Mississippi was not changed")
 
-        game.team1 = "Pittsburgh"
-        assertEquals("Pitt", game.team1, "Pittsburgh was not changed")
+        game.winner = "Pittsburgh"
+        assertEquals("Pitt", game.winner, "Pittsburgh was not changed")
 
-        game.team1 = "Southern California"
-        assertEquals("USC", game.team1, "Southern California was not changed")
+        game.winner = "Southern California"
+        assertEquals("USC", game.winner, "Southern California was not changed")
 
-        game.team1 = "Southern Methodist"
-        assertEquals("SMU", game.team1, "Southern Methodist was not changed")
+        game.winner = "Southern Methodist"
+        assertEquals("SMU", game.winner, "Southern Methodist was not changed")
 
-        game.team1 = "Texas-El Paso"
-        assertEquals("UTEP", game.team1, "Texas-El Paso was not changed")
+        game.winner = "Texas-El Paso"
+        assertEquals("UTEP", game.winner, "Texas-El Paso was not changed")
 
-        game.team1 = "Texas-San Antonio"
-        assertEquals("UTSA", game.team1, "Texas-San Antonio was not changed")
+        game.winner = "Texas-San Antonio"
+        assertEquals("UTSA", game.winner, "Texas-San Antonio was not changed")
 
-        game.team1 = "Louisville"
-        assertEquals("Louisville", game.team1, "Louisville was changed")
+        game.winner = "Louisville"
+        assertEquals("Louisville", game.winner, "Louisville was changed")
     }
 
     @Test
     fun isTeam1() {
         val team1 = Team(15, "Louisville")
         var result = game.isTeam1(team1)
-        assertTrue(result, "Team1 was not team1")
+        assertTrue(result, "Team1 was not winner")
 
         val team2 = Team(45, "Memphis")
         result = game.isTeam1(team2)
-        assertFalse(result, "Team2 was team1")
+        assertFalse(result, "Team2 was winner")
     }
 
     @Test
@@ -93,7 +93,7 @@ class GameTest {
 
     @Test
     fun testToString() {
-        val expected = "Game(id=-18, week=2, team1Id=15, team1=Louisville, team2Id=45, team2=Memphis)"
+        val expected = "Game(id=-18, week=2, winnerId=15, winner=Louisville, loserId=45, loser=Memphis)"
         val result = game.toString()
         assertEquals(expected, result, "To string does not get expected result")
     }
@@ -104,16 +104,16 @@ class GameTest {
 
         assertTrue(game.equals(game2), "Game did not equal Game 2")
 
-        game2.team1Id = 55
+        game2.winnerId = 55
         assertTrue(game.equals(game2), "Game did not equal Game 2")
 
-        game2.team1 = "Iowa State"
+        game2.winner = "Iowa State"
         assertTrue(game.equals(game2), "Game did not equal Game 2")
 
-        game2.team2Id = 67
+        game2.loserId = 67
         assertTrue(game.equals(game2), "Game did not equal Game 2")
 
-        game2.team2 = "Oklahoma"
+        game2.loser = "Oklahoma"
         assertTrue(game.equals(game2), "Game did not equal Game 2")
 
         game2.transitive = false

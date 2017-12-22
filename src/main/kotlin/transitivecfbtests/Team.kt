@@ -100,6 +100,7 @@ class Team {
         // For each game in this teams transitive schedule
         this.transSchedule.forEach { thisGame ->
 
+            // Check that the week of the game is within range
             if(thisGame.week > week) {
                 return@forEach
             }
@@ -107,6 +108,7 @@ class Team {
             // Check against every game in the other teams transitive schedule
             otherTeam.transSchedule.forEach { thatGame ->
 
+                // Check that the week of the game is within range
                 if(thatGame.week > week) {
                     return@forEach
                 }
@@ -158,7 +160,7 @@ class Team {
     }
 
     fun printTransativeSchedule() {
-        val headers = "| team1Id |         team1          | team2Id |         team2          | code |"
+        val headers = "| winnerId |         winner          | loserId |         loser          | code |"
         val divider = "+---------+------------------------+---------+------------------------+------+"
         println(divider)
         println(headers)
@@ -166,11 +168,11 @@ class Team {
         for (game in transSchedule) {
             val formatString = "|   %-3d   | %-22s |   %-3d   | %-22s |  %+2d  |"
             if (game.isTeam1(this)) {
-                println(String.format(formatString, game.team1Id, game.team1, game.team2Id, game.team2, game.transitiveCode))
+                println(String.format(formatString, game.winnerId, game.winner, game.loserId, game.loser, game.transitiveCode))
             } else {
-                println(String.format(formatString, game.team2Id, game.team2, game.team1Id, game.team1, -game.transitiveCode))
+                println(String.format(formatString, game.loserId, game.loser, game.winnerId, game.winner, -game.transitiveCode))
             }
-            //println(String.format(formatString, game.team1Id, game.team1, game.team2Id, game.team2, game.transitiveCode))
+            //println(String.format(formatString, game.winnerId, game.winner, game.loserId, game.loser, game.transitiveCode))
         }
         println(divider)
     }

@@ -13,20 +13,20 @@ fun parseData(year: String): List<Team> {
     //TODO: make this better if possible
     for (game in games) {
         for (team in teams) {
-            if (game.team1 == team.name) {
-                game.team1Id = team.id
+            if (game.winner == team.name) {
+                game.winnerId = team.id
                 team.schedule.add(game)
-            } else if (game.team2 == team.name) {
-                game.team2Id = team.id
+            } else if (game.loser == team.name) {
+                game.loserId = team.id
                 team.schedule.add(game)
             }
         }
-        if (game.team1Id == null) {
-            game.team1Id = 0
-            game.team1 = "FCS"
-        } else if (game.team2Id == null) {
-            game.team2Id = 0
-            game.team2 = "FCS"
+        if (game.winnerId == null) {
+            game.winnerId = 0
+            game.winner = "FCS"
+        } else if (game.loserId == null) {
+            game.loserId = 0
+            game.loser = "FCS"
         }
     }
 
@@ -34,7 +34,7 @@ fun parseData(year: String): List<Team> {
 }
 
 /*
-    Algorithm for calculating the transative results for a given set of teams
+    Algorithm for calculating the transitive results for a given set of teams
  */
 fun calculateTransitiveResults(teams: List<Team>, depth: Int = 1) {
     for (i in 1..14) {
@@ -59,16 +59,16 @@ fun getOtherTeam(game: Game, team: Team, teams: List<Team>): Team? {
     var team2: Team? = null
 
     if (game.isTeam1(team)) {
-        if (game.team2 == "FCS") {
+        if (game.loser == "FCS") {
             return null
         }
-        val i = teams.indexOf(Team(game.team2Id!!, game.team2!!))
+        val i = teams.indexOf(Team(game.loserId!!, game.loser!!))
         team2 = teams.get(i)
     } else {
-        if (game.team1 == "FCS") {
+        if (game.winner == "FCS") {
             return null
         }
-        val i = teams.indexOf(Team(game.team1Id!!, game.team1!!))
+        val i = teams.indexOf(Team(game.winnerId!!, game.winner!!))
         team2 = teams.get(i)
     }
 
@@ -169,7 +169,8 @@ fun updateTeams(team1: Team, team2: Team?, oldGame: Game, transCode: Int) {
         }
         team1.marked = true
     } else {
-        println("BAD TRANS CODE");
+        println("BAD TRANS CODE")
+        return
     }
 
     val game = Game(-oldGame.id, oldGame.week, winnerId, winnerName, loserId, loserName, true, translateTransCode(transCode))

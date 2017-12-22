@@ -10,10 +10,10 @@ class Game {
     @CsvBindByName(column = "Wk", required = true)
     var week: Int = 0
 
-    var team1Id: Int? = null
+    var winnerId: Int? = null
 
     @CsvBindByName(column = "Winner", required = true)
-    var team1: String? = null
+    var winner: String? = null
         set(value) {
             if (value is String && value.startsWith("(")) {
                 val i = value.indexOf(")")
@@ -26,10 +26,10 @@ class Game {
             }
         }
 
-    var team2Id: Int? = null
+    var loserId: Int? = null
 
     @CsvBindByName(column = "Loser", required = true)
-    var team2: String? = null
+    var loser: String? = null
         set(value) {
             if (value is String && value.startsWith("(")) {
                 val i = value.indexOf(")")
@@ -53,10 +53,10 @@ class Game {
                 transitive: Boolean, transitiveCode: Int) {
         this.id = id
         this.week = week
-        this.team1Id = team1Id
-        this.team1 = team1
-        this.team2Id = team2Id
-        this.team2 = team2
+        this.winnerId = team1Id
+        this.winner = team1
+        this.loserId = team2Id
+        this.loser = team2
         this.transitive = transitive
         this.transitiveCode = transitiveCode
     }
@@ -64,10 +64,10 @@ class Game {
     /* Public Helpers */
 
     /*
-        Returns whether the given team is team1 for this game
+        Returns whether the given team is winner for this game
      */
     fun isTeam1(team: Team): Boolean {
-        if (team.name == team1) {
+        if (team.name == winner) {
             return true
         }
 
@@ -79,9 +79,9 @@ class Game {
      */
     fun getOpponentName(team: Team): String {
         if (isTeam1(team)) {
-            return team2!!
+            return loser!!
         } else {
-            return team1!!
+            return winner!!
         }
     }
 
@@ -110,10 +110,10 @@ class Game {
     override fun toString(): String {
         return "Game(id=$id, " +
                 "week=$week, " +
-                "team1Id=$team1Id, " +
-                "team1=$team1, " +
-                "team2Id=$team2Id, " +
-                "team2=$team2)"
+                "winnerId=$winnerId, " +
+                "winner=$winner, " +
+                "loserId=$loserId, " +
+                "loser=$loser)"
     }
 
     override fun equals(other: Any?): Boolean {
