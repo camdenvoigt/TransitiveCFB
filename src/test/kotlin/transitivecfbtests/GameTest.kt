@@ -2,6 +2,8 @@ package transitivecfbtests
 
 import org.junit.Before
 import org.junit.Test
+import transitivecfb.Game
+import transitivecfb.Team
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue

@@ -3,6 +3,8 @@ package transitivecfbtests
 import org.junit.Test
 
 import org.junit.Before
+import transitivecfb.Game
+import transitivecfb.Team
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -40,31 +42,31 @@ class TeamTest {
     }
 
     private fun setClemsonSchedule() {
-        clemson.schedule.add(Game(1, 1, 15, "Clemson", 45, "Kent State", false,0))
-        clemson.schedule.add(Game(2, 2, 15, "Clemson", 46, "Auburn", false,0))
-        clemson.schedule.add(Game(3, 3, 15, "Clemson", 47, "Louisville", false,0))
-        clemson.schedule.add(Game(4, 4, 15, "Clemson", 48, "Boston College", false,0))
-        clemson.schedule.add(Game(5, 5, 15, "Clemson", 49, "Virginia Tech", false,0))
-        clemson.schedule.add(Game(6, 6, 15, "Clemson", 50, "Wake Forest", false,0))
-        clemson.schedule.add(Game(7, 7, 51, "Syracuse", 15, "Clemson", false,0))
-        clemson.schedule.add(Game(8, 9, 15, "Clemson", 52, "Georgia Tech", false,0))
-        clemson.schedule.add(Game(9, 10, 15, "Clemson", 53, "North Carolina State", false,0))
-        clemson.schedule.add(Game(10, 11, 15, "Clemson", 16, "Florida State", false,0))
-        clemson.schedule.add(Game(11, 12, 15, "Clemson", 0, "FCS", false,0))
-        clemson.schedule.add(Game(12, 13, 15, "Clemson", 55, "South Carolina", false,0))
+        clemson.schedule.add(Game(1, 1, 15, "Clemson", 45, "Kent State", false, 0))
+        clemson.schedule.add(Game(2, 2, 15, "Clemson", 46, "Auburn", false, 0))
+        clemson.schedule.add(Game(3, 3, 15, "Clemson", 47, "Louisville", false, 0))
+        clemson.schedule.add(Game(4, 4, 15, "Clemson", 48, "Boston College", false, 0))
+        clemson.schedule.add(Game(5, 5, 15, "Clemson", 49, "Virginia Tech", false, 0))
+        clemson.schedule.add(Game(6, 6, 15, "Clemson", 50, "Wake Forest", false, 0))
+        clemson.schedule.add(Game(7, 7, 51, "Syracuse", 15, "Clemson", false, 0))
+        clemson.schedule.add(Game(8, 9, 15, "Clemson", 52, "Georgia Tech", false, 0))
+        clemson.schedule.add(Game(9, 10, 15, "Clemson", 53, "North Carolina State", false, 0))
+        clemson.schedule.add(Game(10, 11, 15, "Clemson", 16, "Florida State", false, 0))
+        clemson.schedule.add(Game(11, 12, 15, "Clemson", 0, "FCS", false, 0))
+        clemson.schedule.add(Game(12, 13, 15, "Clemson", 55, "South Carolina", false, 0))
 
-        clemson.transSchedule.add(Game(-1, 1, 15, "Clemson", 45, "Kent State", true,1))
-        clemson.transSchedule.add(Game(-2, 2, 15, "Clemson", 46, "Auburn", true,1))
-        clemson.transSchedule.add(Game(-3, 3, 15, "Clemson", 47, "Louisville", true,1))
-        clemson.transSchedule.add(Game(-4, 4, 15, "Clemson", 48, "Boston College", true,1))
-        clemson.transSchedule.add(Game(-5, 5, 15, "Clemson", 49, "Virginia Tech", true,1))
-        clemson.transSchedule.add(Game(-6, 6, 15, "Clemson", 50, "Wake Forest", true,1))
-        clemson.transSchedule.add(Game(-7, 7, 51, "Syracuse", 15, "Clemson", true,1))
-        clemson.transSchedule.add(Game(-8, 9, 15, "Clemson", 52, "Georgia Tech", true,1))
-        clemson.transSchedule.add(Game(-9, 10, 53, "North Carolina State", 15, "Clemson", true,2))
-        clemson.transSchedule.add(Game(-10, 11, 15, "Clemson", 16, "Florida State", true,2))
-        clemson.transSchedule.add(Game(-11, 12, 15, "Clemson", 0, "FCS", true,0))
-        clemson.transSchedule.add(Game(-12, 13, 55, "South Carolina", 15, "Clemson", true,2))
+        clemson.transSchedule.add(Game(-1, 1, 15, "Clemson", 45, "Kent State", true, 1))
+        clemson.transSchedule.add(Game(-2, 2, 15, "Clemson", 46, "Auburn", true, 1))
+        clemson.transSchedule.add(Game(-3, 3, 15, "Clemson", 47, "Louisville", true, 1))
+        clemson.transSchedule.add(Game(-4, 4, 15, "Clemson", 48, "Boston College", true, 1))
+        clemson.transSchedule.add(Game(-5, 5, 15, "Clemson", 49, "Virginia Tech", true, 1))
+        clemson.transSchedule.add(Game(-6, 6, 15, "Clemson", 50, "Wake Forest", true, 1))
+        clemson.transSchedule.add(Game(-7, 7, 51, "Syracuse", 15, "Clemson", true, 1))
+        clemson.transSchedule.add(Game(-8, 9, 15, "Clemson", 52, "Georgia Tech", true, 1))
+        clemson.transSchedule.add(Game(-9, 10, 53, "North Carolina State", 15, "Clemson", true, 2))
+        clemson.transSchedule.add(Game(-10, 11, 15, "Clemson", 16, "Florida State", true, 2))
+        clemson.transSchedule.add(Game(-11, 12, 15, "Clemson", 0, "FCS", true, 0))
+        clemson.transSchedule.add(Game(-12, 13, 55, "South Carolina", 15, "Clemson", true, 2))
     }
 
     private fun setFSUSchedule() {
@@ -76,10 +78,10 @@ class TeamTest {
         fsu.schedule.add(Game(16, 8, 47, "Louisville", 16, "Florida State", false, 0))
         fsu.schedule.add(Game(17, 9, 48, "Boston College", 16, "Florida State", false, 0))
         fsu.schedule.add(Game(18, 10, 16, "Florida State", 51, "Syracuse", false, 0))
-        fsu.schedule.add(Game(10, 11, 15, "Clemson", 16, "Florida State", false,0))
-        fsu.schedule.add(Game(19, 12, 16, "Florida State", 0, "FCS", false,0))
-        fsu.schedule.add(Game(20, 13, 15, "Florida State", 58, "Florida", false,0))
-        fsu.schedule.add(Game(21, 14, 16, "Florida State", 0, "FCS", false,0))
+        fsu.schedule.add(Game(10, 11, 15, "Clemson", 16, "Florida State", false, 0))
+        fsu.schedule.add(Game(19, 12, 16, "Florida State", 0, "FCS", false, 0))
+        fsu.schedule.add(Game(20, 13, 15, "Florida State", 58, "Florida", false, 0))
+        fsu.schedule.add(Game(21, 14, 16, "Florida State", 0, "FCS", false, 0))
 
         fsu.transSchedule.add(Game(-13, 1, 56, "Alabama", 16, "Florida State", true, 1))
         fsu.transSchedule.add(Game(-14, 4, 53, "North Carolina State", 16, "Florida State", true, 1))
@@ -89,10 +91,10 @@ class TeamTest {
         fsu.transSchedule.add(Game(-16, 8, 47, "Louisville", 16, "Florida State", true, 1))
         fsu.transSchedule.add(Game(-17, 9, 48, "Boston College", 16, "Florida State", true, 1))
         fsu.transSchedule.add(Game(-18, 10, 16, "Florida State", 51, "Syracuse", true, 1))
-        fsu.transSchedule.add(Game(-10, 11, 15, "Clemson", 16, "Florida State", true,2))
-        fsu.transSchedule.add(Game(-19, 12, 16, "Florida State", 0, "FCS", true,1))
-        fsu.transSchedule.add(Game(-20, 13, 15, "Florida State", 58, "Florida", true,1))
-        fsu.transSchedule.add(Game(-21, 14, 16, "Florida State", 0, "FCS", true,1))
+        fsu.transSchedule.add(Game(-10, 11, 15, "Clemson", 16, "Florida State", true, 2))
+        fsu.transSchedule.add(Game(-19, 12, 16, "Florida State", 0, "FCS", true, 1))
+        fsu.transSchedule.add(Game(-20, 13, 15, "Florida State", 58, "Florida", true, 1))
+        fsu.transSchedule.add(Game(-21, 14, 16, "Florida State", 0, "FCS", true, 1))
     }
 
     private fun setISUSchedule() {
@@ -125,7 +127,7 @@ class TeamTest {
 
     @Test
     fun getGame() {
-        val game = Game(7, 7, 51, "Syracuse", 15, "Clemson", false,0)
+        val game = Game(7, 7, 51, "Syracuse", 15, "Clemson", false, 0)
         assertEquals(game, clemson.getGame(7), "Did not get correct game from getGame()")
     }
 

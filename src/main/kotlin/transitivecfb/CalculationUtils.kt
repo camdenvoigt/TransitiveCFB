@@ -1,4 +1,4 @@
-package transitivecfbtests
+package transitivecfb
 
 import com.opencsv.bean.CsvToBeanBuilder
 import java.io.FileReader
