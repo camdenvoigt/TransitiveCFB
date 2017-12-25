@@ -190,19 +190,3 @@ fun translateTransCode(code: Int): Int {
     }
     return 0
 }
-
-/*
-    Prints results of all teams in a formated table in console
- */
-fun printResults(teams: List<Team>) {
-    val divider = "+-----+------------------------+-----------------+-------------------+-------------------+------------------------------+"
-    val header = "| id  |          Team          | Original Record | Transitive Record | Conference Record | Transitive Conference Record |"
-    println(divider)
-    println(header)
-    println(divider)
-    for (team in teams) {
-        val formatString = "| %-3d | %-22s |      %-6s     |       %-6s      |       %-6s      |            %-6s            |"
-        println(String.format(formatString, team.id, team.name, team.getRecord(), team.getTransRecord(), team.getConfRecord(), team.getTransConfRecord()))
-    }
-    println(divider)
-}

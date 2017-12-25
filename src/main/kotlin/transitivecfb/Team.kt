@@ -159,24 +159,6 @@ class Team {
         return "$transConfWins - $transConfLosses"
     }
 
-    fun printTransativeSchedule() {
-        val headers = "| winnerId |         winner          | loserId |         loser          | code |"
-        val divider = "+---------+------------------------+---------+------------------------+------+"
-        println(divider)
-        println(headers)
-        println(divider)
-        for (game in transSchedule) {
-            val formatString = "|   %-3d   | %-22s |   %-3d   | %-22s |  %+2d  |"
-            if (game.isTeam1(this)) {
-                println(String.format(formatString, game.winnerId, game.winner, game.loserId, game.loser, game.transitiveCode))
-            } else {
-                println(String.format(formatString, game.loserId, game.loser, game.winnerId, game.winner, -game.transitiveCode))
-            }
-            //println(String.format(formatString, game.winnerId, game.winner, game.loserId, game.loser, game.transitiveCode))
-        }
-        println(divider)
-    }
-
     /* Overrides */
 
     override fun toString(): String {
