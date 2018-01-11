@@ -1,5 +1,11 @@
 package transitivecfb
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.opencsv.CSVWriter
+import java.io.FileWriter
+
 /* TABLE FUNCTIONS */
 
 /*
@@ -60,4 +66,45 @@ fun printFullResultsTable(teams: List<Team>) {
  */
 fun printTransitiveScheduleTable(team: Team) {
     print(getTransitiveScheduleTable(team))
+}
+
+/* CSV FUNCTIONS */
+
+fun fullResultsCSV(teams: List<Team>) {
+    val headers = "id,Team,Original Record,Transitive Record, Conference Record, Transitive Conference Record"
+    val writer = CSVWriter(FileWriter("./resources/output/test.csv"))
+
+    writer.writeNext(headers.split(",").toTypedArray())
+    for (team in teams) {
+        writer.writeNext(team.getCSVData().split(",").toTypedArray())
+    }
+
+    writer.close()
+}
+
+fun transitiveScheduleTableCSV(team: Team, append: Boolean) {
+    val headers = "teamId,team,oppId,opponent,code"
+    val writer = CSVWriter(FileWriter("./resources/output/transitiveSchedules.csv", append))
+
+    writer.writeNext(headers.split(",").toTypedArray())
+    for (game in team.transSchedule) {
+        val formatString = "%d,%s,%d,%s,%d"
+        if (game.isTeam1(team)) {
+            writer.writeNext(String.format(formatString, game.winnerId, game.winner, game.loserId, game.loser, game.transitiveCode).split(",").toTypedArray())
+        } else {
+            writer.writeNext(String.format(formatString, game.loserId, game.loser, game.winnerId, game.winner, -game.transitiveCode).split(",").toTypedArray())
+        }
+    }
+
+    writer.close()
+}
+
+fun transitiveScheduleTableCSV(teams: List<Team>) {
+    for ((i, team) in teams.withIndex()) {
+        if (i == 0) {
+            transitiveScheduleTableCSV(team, false)
+        } else {
+            transitiveScheduleTableCSV(team, true)
+        }
+    }
 }

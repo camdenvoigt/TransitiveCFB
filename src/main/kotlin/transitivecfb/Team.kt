@@ -159,6 +159,13 @@ class Team {
         return "$transConfWins - $transConfLosses"
     }
 
+    /*
+        Gets team as a csv row
+     */
+    fun getCSVData(): String {
+        return "$id,$name,${getRecord()},${getTransRecord()},${getConfRecord()},${getTransConfRecord()}"
+    }
+
     /* Overrides */
 
     override fun toString(): String {

@@ -7,5 +7,6 @@ fun main(args: Array<String>) {
     printFullResultsTable(teams)
     val team = teams.get(29)
     printTransitiveScheduleTable(team)
-
+    fullResultsCSV(teams)
+    transitiveScheduleTableCSV(teams)
 }
