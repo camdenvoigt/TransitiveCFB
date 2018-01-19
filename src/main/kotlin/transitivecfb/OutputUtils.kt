@@ -1,10 +1,39 @@
 package transitivecfb
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.opencsv.CSVWriter
 import java.io.FileWriter
+
+/* Config Caller */
+
+fun output(config: Config, teams: List<Team>) {
+    when(config.outputType) {
+        "print" -> printFullResultsTable(teams)
+        "csv" -> fullResultsCSV(teams)
+    }
+
+    val printTeams = ArrayList<Team>()
+    for (teamName in config.schoolOutputs) {
+        for (team in teams) {
+            if (team.name == teamName) {
+                printTeams.add(team)
+            }
+        }
+    }
+
+    if(config.outputType == "csv") {
+        transitiveScheduleTableCSV(printTeams)
+    } else {
+        for (team in printTeams) {
+            when(config.outputType) {
+                "print" -> printTransitiveScheduleTable(team)
+            }
+        }
+    }
+
+    if (config.outputType == "csv") {
+        print("CSV files are located in ./resources/output/")
+    }
+}
 
 /* TABLE FUNCTIONS */
 
@@ -72,7 +101,7 @@ fun printTransitiveScheduleTable(team: Team) {
 
 fun fullResultsCSV(teams: List<Team>) {
     val headers = "id,Team,Original Record,Transitive Record, Conference Record, Transitive Conference Record"
-    val writer = CSVWriter(FileWriter("./resources/output/test.csv"))
+    val writer = CSVWriter(FileWriter("./resources/output/fullTransitiveResults.csv"))
 
     writer.writeNext(headers.split(",").toTypedArray())
     for (team in teams) {

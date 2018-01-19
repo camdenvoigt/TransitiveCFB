@@ -6,11 +6,10 @@ import java.io.FileReader
 /*
  Parses csv files for the given years and constructs a list of teams and their schedules
  */
-fun parseData(year: String): List<Team> {
-    var teams: List<Team> = CsvToBeanBuilder<Team>(FileReader("./resources/$year/fbs_schools_$year.csv")).withType(Team::class.java).build().parse()
-    var games: List<Game> = CsvToBeanBuilder<Game>(FileReader("./resources/$year/fbs_results_$year.csv")).withType(Game::class.java).build().parse()
+fun parseData(config: Config): List<Team> {
+    val teams: List<Team> = CsvToBeanBuilder<Team>(FileReader(config.schoolFileLocation())).withType(Team::class.java).build().parse()
+    val games: List<Game> = CsvToBeanBuilder<Game>(FileReader(config.resultsFileLocation())).withType(Game::class.java).build().parse()
 
-    //TODO: make this better if possible
     for (game in games) {
         for (team in teams) {
             if (game.winner == team.name) {

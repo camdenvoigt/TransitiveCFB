@@ -1,12 +1,19 @@
 package transitivecfb
 
+import java.io.FileNotFoundException
+import java.lang.System.exit
+
 fun main(args: Array<String>) {
-    //TODO: take command line arguments
-    var teams = parseData("2017")
-    calculateTransitiveResults(teams)
-    printFullResultsTable(teams)
-    val team = teams.get(29)
-    printTransitiveScheduleTable(team)
-    fullResultsCSV(teams)
-    transitiveScheduleTableCSV(teams)
+    try {
+        val config = getConfiguration(args)
+        val teams = parseData(config)
+        calculateTransitiveResults(teams)
+        output(config, teams)
+    } catch (exception: IllegalArgumentException) {
+        print("Incorrect Argument")
+        exit(-1)
+    } catch (exception: FileNotFoundException) {
+        print("Could Not find Needed file")
+        exit(-1)
+    }
 }

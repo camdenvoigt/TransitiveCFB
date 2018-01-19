@@ -3,11 +3,13 @@ package transitivecfbtests
 import org.junit.Before
 import org.junit.Test
 import transitivecfb.Game
+import transitivecfb.getConfiguration
 import kotlin.test.*
 
 class CalculationUtilsTest {
 
-    private var teams = transitivecfb.parseData("2017")
+    private val args = ArrayList<String>()
+    private var teams = transitivecfb.parseData(getConfiguration(args.toTypedArray()))
 
     @Before
     fun setUp() {
@@ -16,7 +18,7 @@ class CalculationUtilsTest {
 
     @Test
     fun parseData() {
-        val parseTeams = transitivecfb.parseData("2016")
+        val parseTeams = transitivecfb.parseData(getConfiguration(args.toTypedArray()))
 
         assertNotNull(parseTeams, "Parse Data returns null list")
         for (team in parseTeams) {
